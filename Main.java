@@ -84,7 +84,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        // Тікелей Builder арқылы жасау
         Report pdfReport = new Report.Builder()
                 .title("Annual Report")
                 .author("Reim")

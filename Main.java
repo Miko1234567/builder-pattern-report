@@ -1,6 +1,5 @@
 public class Main {
 
-    // 1. Product (Өнім класы)
     public static class Report {
         private final String title;
         private final String author;
@@ -24,7 +23,6 @@ public class Main {
             System.out.println("Content:\n" + content + "\n");
         }
 
-        // Builder класы (Fluent API қолданады)
         public static class Builder {
             private String title;
             private String author = "Anonymous";
@@ -51,19 +49,16 @@ public class Main {
                 return this;
             }
 
-            // Concrete Builder 1: PDF жасау
             public Report buildPdf() {
                 validate();
                 return new Report(this, "PDF");
             }
 
-            // Concrete Builder 2: HTML жасау
             public Report buildHtml() {
                 validate();
                 return new Report(this, "HTML");
             }
 
-            // Валидация (Clean Code)
             private void validate() {
                 if (title == null || title.trim().isEmpty()) {
                     throw new IllegalStateException("Validation error: 'title' is required.");
@@ -72,7 +67,6 @@ public class Main {
         }
     }
 
-    // 2. Director (Құрылыс тізбегін басқарушы)
     public static class ReportDirector {
         public Report constructFinancialPdf(Report.Builder builder) {
             return builder.title("Quarterly Financial Summary")
@@ -89,7 +83,6 @@ public class Main {
         }
     }
 
-    // 3. Client / Main (Бағдарламаның нүктесі)
     public static void main(String[] args) {
         // Тікелей Builder арқылы жасау
         Report pdfReport = new Report.Builder()
@@ -99,8 +92,7 @@ public class Main {
                 .includeCharts(true)
                 .buildPdf();
         pdfReport.displayReport();
-
-        // Director арқылы жасау
+        
         ReportDirector director = new ReportDirector();
         Report financialReport = director.constructFinancialPdf(new Report.Builder());
         financialReport.displayReport();
